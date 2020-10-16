@@ -1,0 +1,3 @@
+rootProject.name='ScaleProgressView'
+include ':app'
+include ':scaleprogresslibrary'
