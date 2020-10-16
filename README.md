@@ -15,7 +15,7 @@ allprojects {
 ```
 
 ```java
-implementation 'com.github.YangsBryant:OverlappingCards:1.0.2'
+implementation 'com.github.YangsBryant:ScaleProgressView:1.0.1'
 ```
 
 ## 主要代码
