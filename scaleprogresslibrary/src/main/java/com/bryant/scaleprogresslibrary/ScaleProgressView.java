@@ -16,9 +16,13 @@ public class ScaleProgressView extends View {
     private int clipPaddingTop = 35;//顶部的距离
     private int scalePaddingTop = clipPaddingTop+25;//刻度条距离顶部的距离
     private int scaleWidth;//每个刻度的宽度
+    private int scaleInsideWidth;//每个刻度里面的宽度
+    private int scaleInsideSize = 0;//每个刻度里面的段数
     private int scaleHeight = 40;//刻度条的高度
     private int[] scalePart = new int[]{50,80,100};//每段刻度值的宽度
-    private int clipPos = 70; //卡子的位置
+    private String clipText="26℃";//卡子的文本
+    private int clipPos = 70; //卡子在分段的位置
+    private int scaleDeviationPos = 0;//卡子在当前分段的偏移位置
     private String unit = "%";//刻度单位
     private int textColor = R.color.colorPrimary;
     private int[] scaleColor = new int[]{R.color.colorPrimary,R.color.colorAccent,R.color.colorPrimary};//每个刻度的颜色
@@ -78,14 +82,29 @@ public class ScaleProgressView extends View {
         this.isSpace = bl;
         return this;
     }
+    //设置卡子所在分段里面的段数
+    public ScaleProgressView setScaleInsideSize(int size){
+        this.scaleInsideSize = size;
+        return this;
+    }
+    //设置卡子所在分段里的偏移位置
+    public ScaleProgressView setScaleDeviationPos(int size){
+        this.scaleDeviationPos = size;
+        return this;
+    }
+    //设置卡子在分段位置
+    public ScaleProgressView setClipPos(int clipPos){
+        this.clipPos = clipPos;
+        return this;
+    }
+    //设置卡子的文本
+    public ScaleProgressView setClipText(String clipText){
+        this.clipText = clipText;
+        return this;
+    }
     //设置卡子的颜色
     public ScaleProgressView setClipColor(int clipColor){
         this.clipColor = clipColor;
-        return this;
-    }
-    //设置卡子位置
-    public ScaleProgressView setClipPos(int clipPos){
-        this.clipPos = clipPos;
         return this;
     }
     //是否显示卡子
@@ -105,6 +124,11 @@ public class ScaleProgressView extends View {
         super.onDraw(canvas);
         scaleMax = canvas.getWidth();
         scaleWidth = scaleMax / (scalePart[scalePart.length - 1] - scalePart[0]);
+        if(scaleInsideSize>0) {
+            scaleInsideWidth = scaleWidth / scaleInsideSize;
+        }else{
+            scaleInsideWidth = 0;
+        }
         printProgress(canvas);
         printScaleText(canvas);
         printClip(canvas);
@@ -118,14 +142,14 @@ public class ScaleProgressView extends View {
                     mPos = i;
                 }
             }
-            int startXTo = (clipPos - scalePart[0]) * scaleWidth + spaceWidth * mPos;
+            float startXTo = (clipPos - scalePart[0]) * scaleWidth + spaceWidth * mPos - 7.5f + + scaleInsideWidth * scaleDeviationPos;
 
             Paint mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
             mPaint.setColor(context.getResources().getColor(R.color.colorPrimaryDark));
             mPaint.setStyle(Paint.Style.FILL);
             mPaint.setStrokeWidth(4);
             mPaint.setTextSize(30);
-            canvas.drawText(clipPos + unit, startXTo - getTextWidth(mPaint, clipPos + unit) / 2,
+            canvas.drawText(clipText, startXTo - getTextWidth(mPaint, clipText) / 2,
                     25, mPaint);
 
             Paint clipPaint = new Paint(Paint.ANTI_ALIAS_FLAG);

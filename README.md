@@ -33,8 +33,8 @@ public class MainActivity extends AppCompatActivity {
         final int[] scalePart = new int[]{15,23,30,35};
         final int[] scaleColor = new int[]{R.color.color06CAAC,R.color.colorFF8F26,R.color.color06CAAC};
 
-        final int[] scalePart2 = new int[]{50,80,100};
-        final int[] scaleColor2 = new int[]{R.color.colorPrimary,R.color.colorAccent};
+        final int[] scalePart2 = new int[]{5,6,7,8,9,10};
+        final int[] scaleColor2 = new int[]{R.color.color06CAAC,R.color.colorFF8F26,R.color.color06CAAC,R.color.colorFF8F26,R.color.color06CAAC};
 
         scaleProgressView = findViewById(R.id.scaleProgressView);
         scaleProgressView.setScalePart(scalePart)
@@ -52,20 +52,25 @@ public class MainActivity extends AppCompatActivity {
                 scaleProgressView.setScalePart(scalePart)
                         .setScaleColor(scaleColor)
                         .setClipPos(26)
+                        .setClipText("26")
                         .setUnit("℃")
+                        .setScaleInsideSize(0)
+                        .setScaleDeviationPos(0)
                         .setTextColor(R.color.colorPrimary)
                         .setClipColor(R.color.colorPrimary)
                         .isSpace(true).invalidate();
             }
         });
-
         button02.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 scaleProgressView.setScalePart(scalePart2)
                         .setScaleColor(scaleColor2)
-                        .setClipPos(70)
-                        .setUnit("%")
+                        .setClipPos(8)
+                        .setClipText("8/13日")
+                        .setUnit("月")
+                        .setScaleInsideSize(30)
+                        .setScaleDeviationPos(13)
                         .setTextColor(R.color.colorFF8F26)
                         .setClipColor(R.color.colorFF8F26)
                         .isSpace(true)
@@ -127,8 +132,11 @@ setTextColor(int textColor) | 设置刻度文本颜色
 setendsPadding(int endsPadding) | 设置两端文字的缩进边距
 setScaleHeight(int scaleHeight) | 设置刻度尺高度
 isSpace(boolean bl) | 是否显示间隔
+setScaleInsideSize(int size) | 设置卡子所在分段里面的段数
+setScaleDeviationPos(int size) | 设置卡子所在分段里的偏移位置
+setClipPos(int clipPos) | 卡子在分段的位置
+setClipText(String clipText) | 设置卡子的文本
 setClipColor(int clipColor) | 设置卡子的颜色
-setClipPos(int clipPos) | 设置卡子位置
 isClip(boolean bl) | 是否显示卡子
 setClipPaddingTop(int clipPaddingTop) | 顶部的距离
 
