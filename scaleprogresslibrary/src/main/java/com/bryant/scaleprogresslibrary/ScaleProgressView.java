@@ -58,7 +58,7 @@ public class ScaleProgressView extends View {
         this.unit = unit;
         return this;
     }
-    //设置刻度单位
+    //设置刻度文本颜色
     public ScaleProgressView setTextColor(int textColor){
         this.textColor = textColor;
         return this;
