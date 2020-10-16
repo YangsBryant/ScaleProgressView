@@ -1,7 +1,7 @@
 # ScaleProgressView
 分段多刻度进度条
 
-![这是一张图片](https://github.com/YangsBryant/ScaleProgressView/blob/master/c1bb5-4ea6k.gif)
+![这是一张图片](https://github.com/YangsBryant/ScaleProgressView/blob/master/xctqb-f9nf5.gif)
 
 ## 引入module
 ```java

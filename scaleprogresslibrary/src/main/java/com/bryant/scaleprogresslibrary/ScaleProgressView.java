@@ -145,7 +145,7 @@ public class ScaleProgressView extends View {
             float startXTo = (clipPos - scalePart[0]) * scaleWidth + spaceWidth * mPos - 7.5f + + scaleInsideWidth * scaleDeviationPos;
 
             Paint mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-            mPaint.setColor(context.getResources().getColor(R.color.colorPrimaryDark));
+            mPaint.setColor(context.getResources().getColor(clipColor));
             mPaint.setStyle(Paint.Style.FILL);
             mPaint.setStrokeWidth(4);
             mPaint.setTextSize(30);
