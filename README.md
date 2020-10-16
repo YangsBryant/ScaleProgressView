@@ -16,6 +16,7 @@ allprojects {
 
 ```java
 implementation 'com.github.YangsBryant:OverlappingCards:1.0.2'
+```
 
 ## 主要代码
 ```java
@@ -130,3 +131,5 @@ setClipColor(int clipColor) | 设置卡子的颜色
 setClipPos(int clipPos) | 设置卡子位置
 isClip(boolean bl) | 是否显示卡子
 setClipPaddingTop(int clipPaddingTop) | 顶部的距离
+
+## 联系QQ：961606042
