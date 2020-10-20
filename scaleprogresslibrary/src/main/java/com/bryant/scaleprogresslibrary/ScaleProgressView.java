@@ -7,8 +7,9 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.RectF;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
+
+import java.util.Calendar;
 
 public class ScaleProgressView extends View {
 
@@ -32,6 +33,7 @@ public class ScaleProgressView extends View {
     private int spaceWidth = dip2px(1); //间隔宽度
     private boolean isClip = true;//是否显示卡子
     private boolean isSpace = false; //是否开启间隔
+    private int timeMode = -1; //时间模式 0：日期 1：月份 -1:不开启
 
     public ScaleProgressView(Context context) {
         this(context,null);
@@ -112,18 +114,33 @@ public class ScaleProgressView extends View {
         this.isClip = bl;
         return this;
     }
+    //是否开启日期模式
+    public ScaleProgressView setTimeMode(int timeMode){
+        this.timeMode = timeMode;
+        return this;
+    }
     //顶部的距离
     public ScaleProgressView setClipPaddingTop(int clipPaddingTop){
         this.clipPaddingTop = clipPaddingTop+35;
         return this;
     }
 
-    @SuppressLint("DrawAllocation")
+    @SuppressLint({"DrawAllocation", "CanvasSize"})
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         scaleMax = canvas.getWidth();
-        scaleWidth = scaleMax / (scalePart[scalePart.length - 1] - scalePart[0]);
+        switch (timeMode){
+            case -1:
+                scaleWidth = scaleMax / (getMax(scalePart) - getMin(scalePart));
+                break;
+            case 0:
+                scaleWidth = scaleMax / (getCurrentMonthLastDay() - scalePart[0] + scalePart[scalePart.length-1]);
+                break;
+            case 1:
+                scaleWidth = scaleMax / (12 - scalePart[0] + scalePart[scalePart.length-1]);
+                break;
+        }
         if(scaleInsideSize>0) {
             scaleInsideWidth = scaleWidth / scaleInsideSize;
         }else{
@@ -210,9 +227,32 @@ public class ScaleProgressView extends View {
     }
 
     private int getLengthEach(int endIndex){
-        int startLength = scalePart[0];
-        int endLength = scalePart[endIndex];
-        return (endLength-startLength) * scaleWidth;
+        if(timeMode<0) {
+            int startLength = scalePart[0];
+            int endLength = scalePart[endIndex];
+            return (endLength - startLength) * scaleWidth;
+        }else{
+            int total;
+            if(timeMode == 0){
+                total = getCurrentMonthLastDay();
+            }else{
+                total = 12;
+            }
+            int startLength = scalePart[0];
+            int endLength = scalePart[endIndex];
+            int size;
+            int index = 0;
+            for(int i=0;i<scalePart.length;i++){
+                if(scalePart[i] == getMax(scalePart)){
+                    index = i;
+                }
+            }
+            if(endIndex > index && index>0) {
+                size = (total - startLength) + endLength;
+                return size * scaleWidth;
+            }
+            return (endLength - startLength) * scaleWidth;
+        }
     }
 
     private int getTextWidth(Paint paint, String text) {
@@ -222,5 +262,33 @@ public class ScaleProgressView extends View {
     public int dip2px(int dp) {
         float density = getContext().getResources().getDisplayMetrics().density;
         return (int) (dp * density + 0.5);
+    }
+
+    public int getMax(int[] array) {
+        int Max = array[0];
+        for (int i = 1; i < array.length; i++) {
+            if (Max < array[i]) {
+                Max = array[i];
+            }
+        }
+        return Max;
+    }
+
+    public int getMin(int[] array) {
+        int Max = array[0];
+        for (int i = 1; i < array.length; i++) {
+            if (Max > array[i]) {
+                Max = array[i];
+            }
+        }
+        return Max;
+    }
+
+    public int getCurrentMonthLastDay(){
+        Calendar a = Calendar.getInstance();
+        a.set(Calendar.DATE, 1);
+        a.roll(Calendar.DATE, -1);
+        int maxDate = a.get(Calendar.DATE);
+        return maxDate;
     }
 }

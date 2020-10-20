@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/scaleProgressView"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginLeft="50dp"
+        android:layout_marginLeft="25dp"
         android:text="数据集一"
      />
 
@@ -34,5 +34,15 @@
         app:layout_constraintLeft_toRightOf="@+id/button01"
         android:layout_marginLeft="50dp"
         android:text="数据集二"
+        />
+
+    <Button
+        android:id="@+id/button03"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/scaleProgressView"
+        app:layout_constraintLeft_toRightOf="@+id/button02"
+        android:layout_marginLeft="50dp"
+        android:text="数据集三"
         />
 </android.support.constraint.ConstraintLayout>
