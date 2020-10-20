@@ -15,7 +15,7 @@ allprojects {
 ```
 
 ```java
-implementation 'com.github.YangsBryant:ScaleProgressView:1.0.4'
+implementation 'com.github.YangsBryant:ScaleProgressView:1.0.5'
 ```
 
 ## 主要代码
