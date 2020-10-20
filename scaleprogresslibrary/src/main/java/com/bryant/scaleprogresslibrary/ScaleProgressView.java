@@ -7,8 +7,10 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.RectF;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
+import java.text.DecimalFormat;
 import java.util.Calendar;
 
 public class ScaleProgressView extends View {
@@ -16,8 +18,8 @@ public class ScaleProgressView extends View {
     private Context context;
     private int clipPaddingTop = 35;//顶部的距离
     private int scalePaddingTop = clipPaddingTop+25;//刻度条距离顶部的距离
-    private int scaleWidth;//每个刻度的宽度
-    private int scaleInsideWidth;//每个刻度里面的宽度
+    private float scaleWidth;//每个刻度的宽度
+    private float scaleInsideWidth;//每个刻度里面的宽度
     private int scaleInsideSize = 0;//每个刻度里面的段数
     private int scaleHeight = 40;//刻度条的高度
     private int[] scalePart = new int[]{50,80,100};//每段刻度值的宽度
@@ -132,7 +134,7 @@ public class ScaleProgressView extends View {
         scaleMax = canvas.getWidth();
         switch (timeMode){
             case -1:
-                scaleWidth = scaleMax / (getMax(scalePart) - getMin(scalePart));
+                scaleWidth = division(scaleMax,(getMax(scalePart) - getMin(scalePart)));
                 break;
             case 0:
                 scaleWidth = scaleMax / (getCurrentMonthLastDay() - scalePart[0] + scalePart[scalePart.length-1]);
@@ -236,7 +238,7 @@ public class ScaleProgressView extends View {
         }
     }
 
-    private int getLengthEach(int endIndex){
+    private float getLengthEach(int endIndex){
         if(timeMode<0) {
             int startLength = scalePart[0];
             int endLength = scalePart[endIndex];
@@ -300,5 +302,13 @@ public class ScaleProgressView extends View {
         a.roll(Calendar.DATE, -1);
         int maxDate = a.get(Calendar.DATE);
         return maxDate;
+    }
+
+    public float division(int a ,int b){
+        float num =(float)a/b;
+       // String str = (num+"").substring();
+        DecimalFormat df=new DecimalFormat(".##");
+        return Float.parseFloat(df.format(num));
+
     }
 }
