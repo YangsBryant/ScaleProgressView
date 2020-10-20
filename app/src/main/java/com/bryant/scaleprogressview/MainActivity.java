@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
         final int[] scaleColor = new int[]{R.color.color06CAAC,R.color.colorFF8F26,R.color.color06CAAC};
 
         final int[] scalePart2 = new int[]{8,10,11,1,2,3};
-        final int[] scaleColor2 = new int[]{R.color.colorFF8F26,R.color.color06CAAC,R.color.color06CAAC,R.color.colorFF8F26,R.color.color06CAAC};
+        final int[] scaleColor2 = new int[]{R.color.colorFF8F26,R.color.color06CAAC,R.color.color06CAAC,R.color.colorFF8F26,R.color.color06CAAC,R.color.color06CAAC};
 
         final int[] scalePart3 = new int[]{27,28,30,1,2};
         final int[] scaleColor3 = new int[]{R.color.color06CAAC,R.color.color06CAAC,R.color.color06CAAC,R.color.colorFF8F26};

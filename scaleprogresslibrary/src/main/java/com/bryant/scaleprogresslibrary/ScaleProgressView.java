@@ -138,7 +138,17 @@ public class ScaleProgressView extends View {
                 scaleWidth = scaleMax / (getCurrentMonthLastDay() - scalePart[0] + scalePart[scalePart.length-1]);
                 break;
             case 1:
-                scaleWidth = scaleMax / (12 - scalePart[0] + scalePart[scalePart.length-1]);
+                int index = 0;
+                for(int i=0;i<scalePart.length;i++){
+                    if(scalePart[i] == getMax(scalePart)){
+                        index = i;
+                    }
+                }
+                if(index>0 && index==scalePart.length-1){
+                    scaleWidth = scaleMax / (12 - scalePart[0]);
+                }else{
+                    scaleWidth = scaleMax / (12 - scalePart[0] + scalePart[scalePart.length-1]);
+                }
                 break;
         }
         if(scaleInsideSize>0) {
